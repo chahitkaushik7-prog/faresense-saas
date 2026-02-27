@@ -2,7 +2,6 @@ from fastapi import FastAPI
 import os
 from sqlalchemy import create_engine, text
 
-from app.models import Base
 from app.pricing_engine import calculate_price
 
 app = FastAPI()
