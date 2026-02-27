@@ -31,11 +31,14 @@ def test_db():
     try:
         DATABASE_URL = os.getenv("DATABASE_URL")
 
+        if not DATABASE_URL:
+            return {"error": "DATABASE_URL not set"}
+
         engine = create_engine(DATABASE_URL)
 
         with engine.connect() as connection:
             result = connection.execute(text("SELECT 1"))
-            return {"status": "connected", "result": list(result)}
+            return {"status": "connected"}
 
     except Exception as e:
         return {"error": str(e)}
