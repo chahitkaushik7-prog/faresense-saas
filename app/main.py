@@ -2,14 +2,13 @@ from fastapi import FastAPI
 import os
 from sqlalchemy import create_engine, text
 
-from app.database import engine
 from app.models import Base
 from app.pricing_engine import calculate_price
 
 app = FastAPI()
 
 # Create tables
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 
 @app.get("/")
@@ -31,7 +30,8 @@ def calculate(base_price: float, occupancy: float):
 def test_db():
     try:
         DATABASE_URL = os.getenv("DATABASE_URL")
-        engine = create_engine(DATABASE_URL, connect_args={"sslmode": "require"})
+
+        engine = create_engine(DATABASE_URL)
 
         with engine.connect() as connection:
             result = connection.execute(text("SELECT 1"))
