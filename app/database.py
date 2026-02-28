@@ -12,4 +12,8 @@ engine = create_engine(
     connect_args={"sslmode": "require"}
 )
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
