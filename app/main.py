@@ -8,10 +8,13 @@ from app.pricing_engine import calculate_price
 
 app = FastAPI()
 
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
+
 # -----------------------------
 # Create Tables on Startup
 # -----------------------------
-Base.metadata.create_all(bind=engine)
 
 
 # -----------------------------

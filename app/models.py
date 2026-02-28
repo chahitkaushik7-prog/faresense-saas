@@ -1,9 +1,8 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey, DateTime
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy.orm import relationship, declarative_base
 from datetime import datetime
 
 Base = declarative_base()
-
 
 class Ride(Base):
     __tablename__ = "rides"
@@ -12,6 +11,7 @@ class Ride(Base):
     route_name = Column(String, nullable=False)
     base_price = Column(Float, nullable=False)
     total_seats = Column(Integer, nullable=False)
+    current_price = Column(Float, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     bookings = relationship("Booking", back_populates="ride")
@@ -26,15 +26,3 @@ class Booking(Base):
     booking_time = Column(DateTime, default=datetime.utcnow)
 
     ride = relationship("Ride", back_populates="bookings")
-
-    class Ride(Base):
-    __tablename__ = "rides"
-
-    id = Column(Integer, primary_key=True, index=True)
-    route_name = Column(String, nullable=False)
-    base_price = Column(Float, nullable=False)
-    total_seats = Column(Integer, nullable=False)
-    current_price = Column(Float, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-
-    bookings = relationship("Booking", back_populates="ride")
