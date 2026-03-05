@@ -26,3 +26,14 @@ class Booking(Base):
     booking_time = Column(DateTime, default=datetime.utcnow)
 
     ride = relationship("Ride", back_populates="bookings")
+
+
+class Operator(Base):
+    __tablename__ = "operators"
+
+    id = Column(Integer, primary_key=True, index=True)
+    company_name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    password = Column(String, nullable=False)
+
+    rides = relationship("Ride", back_populates="operator")
